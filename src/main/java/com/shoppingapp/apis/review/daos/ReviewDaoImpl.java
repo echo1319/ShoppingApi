@@ -27,7 +27,7 @@ public class ReviewDaoImpl implements ReviewDao {
         rating text                */
 
 
-        String sql = "WITH new_values (store_id, user_id, rating) as ( values ('%s', '%s', '%s') ," +
+        String sql = "WITH new_values (store_id, user_id, rating) as ( values ('%s', '%s', '%s') )," +
                 " upsert as " +
                 " (update rating m " +
                 " set store_id=nv.store_id, user_id = nv.user_id, rating= nv.rating " +
@@ -52,7 +52,7 @@ public class ReviewDaoImpl implements ReviewDao {
         comment text
         date text
         */
-        String sql = "insert into comment values(?,?,?,?,?)";
+        String sql = "insert into comment(user_id,store_id,comment_id,comment,date)  values(?,?,?,?,?)";
         jdbcTemplate.update(sql, comment.getUserId(), comment.getStoreId(), comment.getCommentId(), comment.getComment(), comment.getDate());
 
     }
