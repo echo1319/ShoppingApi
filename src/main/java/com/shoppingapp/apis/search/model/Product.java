@@ -12,6 +12,7 @@ public class Product implements Serializable {
     private String category;
     private String description;
 
+
     public Product() {
         this.productId = UUID.randomUUID().toString();
     }

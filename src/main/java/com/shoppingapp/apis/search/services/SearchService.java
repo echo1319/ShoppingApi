@@ -11,13 +11,15 @@ import java.util.List;
 
 public interface SearchService {
 
-    List<Store> getStoresForProduct(String keyword, double maximumDistance, Units unit, TransportMode transportMode, String userLocation);
 
-    Store getStoreForProductByDistance(String keyword, double maximumDistance, String unit, OrderBy orderBy, String userLocation);
+    List<Store> getStoresWithinDistance(String keyword, double maximumDistance, Units unit, TransportMode transportMode, String userLocation, OrderBy orderBy);
 
-    Store getStoreForProductByTime(String keyword, double maximumTime, String unit, OrderBy orderBy, String userLocation);
+    List<Store> getStoresWithinTime(String keyword, double maximumTime, Units unit,
+                                    TransportMode transportMode, String userLocation, OrderBy orderBy);
 
-    Store getStoreForProduct(String keyword, OrderBy orderBy);
+    Store getStoreWithinDistance(String keyword, double maximumDistance, Units unit, TransportMode transportMode, String userLocation, OrderBy orderBy);
+
+    Store getStoreWithinTime(String keyword, double maximumTime, Units unit, TransportMode transportMode, String userLocatio, OrderBy orderBy);
 
     List<Product> getProducts(String keyword);
 }

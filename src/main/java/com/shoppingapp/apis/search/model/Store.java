@@ -4,11 +4,11 @@ import java.io.Serializable;
 
 public class Store implements Serializable {
     private String storeId;
-    private String currency;
     private String name;
     private String address;
+    //TODO remove
     private String country;
-
+    //// TODO: add imageUrl
 
     public double getPrice() {
         return price;
@@ -28,13 +28,6 @@ public class Store implements Serializable {
         this.storeId = storeId;
     }
 
-    public String getCurrency() {
-        return currency;
-    }
-
-    public void setCurrency(String currency) {
-        this.currency = currency;
-    }
 
     public String getName() {
         return name;

@@ -9,9 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-/**
- * Created by eri_k on 8/22/2016.
- */
+
 @Repository
 public class ReviewDaoImpl implements ReviewDao {
     private JdbcTemplate jdbcTemplate;
@@ -26,10 +24,24 @@ public class ReviewDaoImpl implements ReviewDao {
         /*user_id text,
         product_id text,
         rating_id text,
-        rating text
-                */
-        String sql = "INSERT into  rating values(?,?,?,?)";
-        jdbcTemplate.update(sql, rating.getUserId(), rating.getStoreId(), rating.getRatingId(), rating.getRating());
+        rating text                */
+
+
+        String sql = "WITH new_values (store_id, user_id, rating) as ( values ('%s', '%s', '%s') ," +
+                " upsert as " +
+                " (update rating m " +
+                " set store_id=nv.store_id, user_id = nv.user_id, rating= nv.rating " +
+                " FROM new_values nv " +
+                "WHERE m.store_id = nv.store_id AND m.user_id=nv.user_id RETURNING m.*) " +
+                "INSERT INTO rating (store_id, user_id, rating) " +
+                "SELECT store_id, user_id, rating " +
+                "FROM new_values  WHERE NOT EXISTS " +
+                "(SELECT 1 FROM upsert up" +
+                " WHERE up.store_id = new_values.store_id  AND up.user_id=new_values.user_id)";
+
+        String.format(sql, rating.getUserId(), rating.getStoreId(), rating.getRating());
+        jdbcTemplate.update(sql);
+
     }
 
     @Override
@@ -40,8 +52,8 @@ public class ReviewDaoImpl implements ReviewDao {
         comment text
         date text
         */
-        String sql = "INSERT into comment values(?,?,?,?,?)";
-        jdbcTemplate.update(sql, comment.getUserId(), comment.getStoreId(), comment.getCommentId(),comment.getComment(), comment.getDate());
+        String sql = "insert into comment values(?,?,?,?,?)";
+        jdbcTemplate.update(sql, comment.getUserId(), comment.getStoreId(), comment.getCommentId(), comment.getComment(), comment.getDate());
 
     }
 
