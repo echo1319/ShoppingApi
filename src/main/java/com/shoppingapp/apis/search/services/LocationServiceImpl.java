@@ -75,17 +75,22 @@ public class LocationServiceImpl {
         try {
             node = JsonLoader.fromString(res);
             LocationInfo locationInfo = new LocationInfo();
-            String distanceString = node.get("rows").get("elements").get("distance").get("text").toString();
-            locationInfo.setDistance(Double.valueOf(distanceString));
-            String distanceMeters = node.get("rows").get("elements").get("distance").get("value").toString();
+
+            String distanceString = node.get("rows").get(0).get("elements").get(0).get("distance").get("text").toString();
+            locationInfo.setDistance(distanceString);
+
+            String distanceMeters = node.get("rows").get(0).get("elements").get(0).get("distance").get("value").toString();
             locationInfo.setDistanceMeters(Double.valueOf(distanceMeters));
-            String durationString = node.get("rows").get("elements").get("duration").get("text").toString();
-            locationInfo.setDuration(Double.valueOf(durationString));
-            String durationMinutes = node.get("rows").get("elements").get("duration").get("value").toString();
-            locationInfo.setDuration(Double.valueOf(durationMinutes));
+
+            String durationString = node.get("rows").get(0).get("elements").get(0).get("duration").get("text").toString();
+            locationInfo.setDuration(durationString);
+
+            String durationMinutes = node.get("rows").get(0).get("elements").get(0).get("duration").get("value").toString();
+            locationInfo.setDurationMinutes(Double.valueOf(durationMinutes));
+
             return locationInfo;
         } catch (IOException e) {
-
+            System.out.println(e.toString());
         }
 
         return null;

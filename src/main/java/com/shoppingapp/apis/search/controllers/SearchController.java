@@ -22,18 +22,17 @@ public class SearchController {
 
     @RequestMapping(value = "/search")
     public List<Store> getStoresForProductByDistance(@RequestParam(value = "keywords") String keyword,
-                                                     @RequestParam(value = "maximumDistance", defaultValue = "0") double maximumDistance,
-                                                     @RequestParam(value = "maximumDistanceUnit", defaultValue = "0") String maximumDistanceUnit,
-                                                     @RequestParam(value = "maximumTime", defaultValue = "0") double maximumTime,
-                                                     @RequestParam(value = "maximumTimeUnit", defaultValue = "0") String maximumTimeUnit,
-                                                     @RequestParam(value = "userLocation", defaultValue = "") String userLocation,
+                                                     @RequestParam(value = "distance", defaultValue = "0") double maximumDistance,
+                                                     @RequestParam(value = "unit", defaultValue = "0") String unit,
+                                                     @RequestParam(value = "duration", defaultValue = "0") double maximumTime,
+                                                     @RequestParam(value = "userLocation") String userLocation,
                                                      @RequestParam(value = "transportMode", defaultValue = "DRIVING") String transportMode,
                                                      @RequestParam(value = "orderBy", defaultValue = "DISTANCE") String orderBy,
                                                      @RequestParam(value = "maxResults", defaultValue = "0") int maxResults) {
         if (maximumTime > 0) {
-            return searchService.getStoresWithinTime(keyword, maximumTime, Units.valueOf(maximumTimeUnit), TransportMode.valueOf(transportMode), userLocation, OrderBy.valueOf(orderBy), maxResults);
+            return searchService.getStoresWithinTime(keyword, maximumTime, Units.valueOf(unit), TransportMode.valueOf(transportMode), userLocation, OrderBy.valueOf(orderBy), maxResults);
         } else if (maximumDistance > 0) {
-            return searchService.getStoresWithinDistance(keyword, maximumDistance, Units.valueOf(maximumDistanceUnit), TransportMode.valueOf(transportMode), userLocation, OrderBy.valueOf(orderBy), maxResults);
+            return searchService.getStoresWithinDistance(keyword, maximumDistance, Units.valueOf(unit), TransportMode.valueOf(transportMode), userLocation, OrderBy.valueOf(orderBy), maxResults);
         }
         return null;
     }

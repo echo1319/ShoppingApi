@@ -6,9 +6,9 @@ public class Store implements Serializable {
     private String storeId;
     private String name;
     private String address;
-    //TODO remove
     private String country;
-    //// TODO: add imageUrl
+    private String site;
+    private String logo;
 
     public double getPrice() {
         return price;
@@ -54,4 +54,19 @@ public class Store implements Serializable {
         this.country = country;
     }
 
+    public String getSite() {
+        return site;
+    }
+
+    public void setSite(String site) {
+        this.site = site;
+    }
+
+    public String getLogo() {
+        return logo;
+    }
+
+    public void setLogo(String logo) {
+        this.logo = logo;
+    }
 }

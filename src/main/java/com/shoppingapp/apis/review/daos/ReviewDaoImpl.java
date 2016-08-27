@@ -39,7 +39,7 @@ public class ReviewDaoImpl implements ReviewDao {
                 "(SELECT 1 FROM upsert up" +
                 " WHERE up.store_id = new_values.store_id  AND up.user_id=new_values.user_id)";
 
-        String.format(sql, rating.getUserId(), rating.getStoreId(), rating.getRating());
+        sql = String.format(sql, rating.getUserId(), rating.getStoreId(), rating.getRating());
         jdbcTemplate.update(sql);
 
     }
