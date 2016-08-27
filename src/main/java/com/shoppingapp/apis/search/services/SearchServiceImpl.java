@@ -21,12 +21,12 @@ public class SearchServiceImpl implements SearchService {
     //TODO add geolocation hecks here
 
     @Override
-    public List<Store> getStoresWithinDistance(String keyword, final double maximumDistance, final Units unit, final TransportMode transportMode, final String userLocation, final OrderBy orderBy) {
+    public List<Store> getStoresWithinDistance(String keyword, final double maximumDistance, final Units unit, final TransportMode transportMode, final String userLocation, final OrderBy orderBy, int maxResults) {
         try {
 
-            List<Store> stores = searchDao.getStores(keyword, OrderBy.NONE);
+            List<Store> stores = searchDao.getStoresForProduct(keyword, OrderBy.NONE);
 
-            return (List<Store>) stores.stream().filter(new Predicate<Store>() {
+            List resultsList = (List<Store>) stores.stream().filter(new Predicate<Store>() {
                 @Override
                 public boolean test(Store store) {
                     LocationInfo locationInfo = locationService.getDistance(userLocation, store.getAddress(), transportMode);
@@ -38,6 +38,13 @@ public class SearchServiceImpl implements SearchService {
                 }
             }).sorted(((orderBy.equals(OrderBy.DISTANCE)) ? new DistanceComparator(userLocation, transportMode) : new PriceComparator())).collect(Collectors.<Store>toList());
 
+            if (maxResults > 0) {
+                return resultsList.subList(0, maxResults);
+            }
+
+            return resultsList;
+
+
         } catch (Exception e) {
             System.out.println(e.toString());
         }
@@ -47,10 +54,11 @@ public class SearchServiceImpl implements SearchService {
 
     @Override
     public List<Store> getStoresWithinTime(String keyword, final double maximumTime, final Units unit,
-                                           final TransportMode transportMode, final String userLocation, OrderBy orderBy) {
+                                           final TransportMode transportMode, final String userLocation, OrderBy orderBy, int maxResults) {
         try {
-            List<Store> stores = searchDao.getStores(keyword, OrderBy.NONE);
-            return (List<Store>) stores.stream().filter(new Predicate<Store>() {
+            List<Store> stores = searchDao.getStoresForProduct(keyword, OrderBy.NONE);
+
+            List resultsList = (List<Store>) stores.stream().filter(new Predicate<Store>() {
                 @Override
                 public boolean test(Store store) {
                     LocationInfo locationInfo = locationService.getDistance(userLocation, store.getAddress(), transportMode);
@@ -62,31 +70,28 @@ public class SearchServiceImpl implements SearchService {
                 }
             }).sorted(((orderBy.equals(OrderBy.DISTANCE)) ? new TimeComparator(userLocation, transportMode) : new PriceComparator())).collect(Collectors.<Store>toList());
 
+            if (maxResults > 0) {
+                return resultsList.subList(0, maxResults);
+            }
+
+            return resultsList;
+
+
         } catch (Exception e) {
             System.out.println(e.toString());
         }
         return null;
     }
 
-
     @Override
-    public Store getStoreWithinDistance(String keyword, final double maximumDistance, final Units unit, final TransportMode transportMode, final String userLocation, OrderBy orderBy) {
-
-        return getStoresWithinDistance(keyword, maximumDistance, unit, transportMode, userLocation, orderBy).stream().findFirst().get();
-
+    public List<Product> getProducts(String keyword, String category, OrderBy orderBy) {
+        return searchDao.getProduct(keyword, category, orderBy);
     }
 
     @Override
-    public Store getStoreWithinTime(String keyword, double maximumTime, Units unit, TransportMode transportMode, String userLocation, OrderBy orderBy) {
-        return getStoresWithinTime(keyword, maximumTime, unit, transportMode, userLocation, orderBy).stream().findFirst().get();
+    public List<Store> getStores(String keyword, OrderBy orderBy) {
 
-    }
-
-
-    @Override
-    public List<Product> getProducts(String keyword) {
-        List<Product> products = searchDao.getProduct(keyword);
-        return products;
+        return searchDao.getStores(keyword, orderBy);
     }
 
 

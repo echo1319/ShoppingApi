@@ -1,5 +1,6 @@
 package com.shoppingapp.apis.search.daos;
 
+import com.shoppingapp.apis.purchase.model.Order;
 import com.shoppingapp.apis.search.model.OrderBy;
 import com.shoppingapp.apis.search.model.Product;
 import com.shoppingapp.apis.search.model.Store;
@@ -22,9 +23,8 @@ public class SearchDaoImpl implements SearchDao {
     }
 
     @Override
-    public List<Store> getStores(String keyword, OrderBy orderBy) {
+    public List<Store> getStoresForProduct(String keyword, OrderBy orderBy) {
 
-//TODO add prepeared statement here?
         String sql = "select  s.store_id ,s.name ,s.address ,s.country , sp.price " +
                 " from product p ,store_product sp, store s" +
                 " where p.name like '%" + keyword + "%' and sp.store_id=s.store_id " +
@@ -40,9 +40,34 @@ public class SearchDaoImpl implements SearchDao {
     }
 
     @Override
-    public List<Product> getProduct(String keyword) {
-        String sql = "select  * + from product p " +
-                "+ where p.name like '%" + keyword + "%' ORDER by p.name asc";
+    public List<Store> getStores(String keyword, OrderBy orderBy) {
+
+        String sql = "select * from store s where s.name like '%" + keyword + "%'";
+
+        if (orderBy == OrderBy.NAME) {
+            sql += " order by s.name asc ";
+        }
+
+        List<Store> stores = jdbcTemplate.query(sql, new BeanPropertyRowMapper(Store.class));
+        return stores;
+    }
+
+
+    @Override
+    public List<Product> getProduct(String keyword, String category, OrderBy orderBy) {
+
+        String sql = "select  * from product p  where p.name like '%" + keyword + "%'";
+
+        if (!category.isEmpty()) {
+            sql += " GROUP by p.category ";
+        }
+
+        if (orderBy == OrderBy.CATEGORY) {
+            sql += " ORDER by p." + OrderBy.CATEGORY + " asc ";
+        } else if (orderBy == OrderBy.NAME) {
+            sql += " ORDER by p." + OrderBy.NAME + " asc ";
+        }
+
 
         List<Product> products = jdbcTemplate.query(sql, new BeanPropertyRowMapper(Product.class));
 

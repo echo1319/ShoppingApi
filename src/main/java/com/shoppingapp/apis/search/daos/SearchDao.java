@@ -11,7 +11,10 @@ import java.util.List;
 @Service
 public interface SearchDao {
 
-    public List<Store> getStores(String keyword, OrderBy orderBy);
-    public List<Product> getProduct(String keyword);
+    public List<Store> getStoresForProduct(String keyword, OrderBy orderBy);
 
-}
+    List<Store> getStores(String keyword, OrderBy orderBy);
+
+    public List<Product> getProduct(String keyword, String category, OrderBy orderBy);
+
+};

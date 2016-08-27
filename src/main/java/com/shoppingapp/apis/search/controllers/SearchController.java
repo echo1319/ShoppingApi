@@ -20,57 +20,38 @@ public class SearchController {
     @Autowired
     private SearchService searchService;
 
-    @RequestMapping(value = "/search/stores")
+    @RequestMapping(value = "/search")
     public List<Store> getStoresForProductByDistance(@RequestParam(value = "keywords") String keyword,
-                                                     @RequestParam(value = "maximumDistance", defaultValue = "-1") double maximumDistance,
-                                                     @RequestParam(value = "maximumDistanceUnit", defaultValue = "-1") String maximumDistanceUnit,
+                                                     @RequestParam(value = "maximumDistance", defaultValue = "0") double maximumDistance,
+                                                     @RequestParam(value = "maximumDistanceUnit", defaultValue = "0") String maximumDistanceUnit,
+                                                     @RequestParam(value = "maximumTime", defaultValue = "0") double maximumTime,
+                                                     @RequestParam(value = "maximumTimeUnit", defaultValue = "0") String maximumTimeUnit,
                                                      @RequestParam(value = "userLocation", defaultValue = "") String userLocation,
                                                      @RequestParam(value = "transportMode", defaultValue = "DRIVING") String transportMode,
-                                                     @RequestParam(value = "orderBy", defaultValue = "DISTANCE") String orderBy) {
-        return searchService.getStoresWithinDistance(keyword, maximumDistance, Units.valueOf(maximumDistanceUnit), TransportMode.valueOf(transportMode), userLocation, OrderBy.valueOf(orderBy));
-    }
-
-    @RequestMapping(value = "/search/stores")
-    public List<Store> getStoresForProductByTime(@RequestParam(value = "keywords") String keyword,
-                                                 @RequestParam(value = "maximumTime", defaultValue = "-1") double maximumTime,
-                                                 @RequestParam(value = "maximumTimeUnit", defaultValue = "-1") String maximumTimeUnit,
-                                                 @RequestParam(value = "userLocation", defaultValue = " ") String userLocation,
-                                                 @RequestParam(value = "transportMode", defaultValue = "DRIVING") String transportMode,
-                                                 @RequestParam(value = "orderBy", defaultValue = "DISTANCE") String orderBy) {
-        return searchService.getStoresWithinTime(keyword, maximumTime, Units.valueOf(maximumTimeUnit), TransportMode.valueOf(transportMode), userLocation, OrderBy.valueOf(orderBy));
-
-    }
-
-    @RequestMapping(value = "/search/stores")
-    public Store getStoreForProductByDistance(@RequestParam(value = "keywords") String keyword,
-                                              @RequestParam(value = "maximumDistance", defaultValue = "-1") double maximumDistance,
-                                              @RequestParam(value = "maximumDistanceUnit", defaultValue = "-1") String maximumDistanceUnit,
-                                              @RequestParam(value = "userLocation", defaultValue = " ") String userLocation,
-                                              @RequestParam(value = "transportMode", defaultValue = "DRIVING") String transportMode,
-                                              @RequestParam(value = "orderBy", defaultValue = "PRICE") String orderBy) {
-        return searchService.getStoreWithinDistance(keyword, maximumDistance, Units.valueOf(maximumDistanceUnit), TransportMode.valueOf(transportMode), userLocation, OrderBy.valueOf(orderBy));
-    }
-
-
-    @RequestMapping(value = "/search/stores")
-    public Store getStoreForProductByTime(@RequestParam(value = "keywords") String keyword,
-                                          @RequestParam(value = "maximumTime", defaultValue = "-1") double maximumTime,
-                                          @RequestParam(value = "maximumTimeUnit", defaultValue = "-1") String maximumTimeUnit,
-                                          @RequestParam(value = "userLocation", defaultValue = " ") String userLocation,
-                                          @RequestParam(value = "transportMode", defaultValue = "DRIVING") String transportMode,
-                                          @RequestParam(value = "orderBy", defaultValue = "PRICE") String orderBy) {
-        return searchService.getStoreWithinTime(keyword, maximumTime, Units.valueOf(maximumTimeUnit), TransportMode.valueOf(transportMode), userLocation, OrderBy.valueOf(orderBy));
-
+                                                     @RequestParam(value = "orderBy", defaultValue = "DISTANCE") String orderBy,
+                                                     @RequestParam(value = "maxResults", defaultValue = "0") int maxResults) {
+        if (maximumTime > 0) {
+            return searchService.getStoresWithinTime(keyword, maximumTime, Units.valueOf(maximumTimeUnit), TransportMode.valueOf(transportMode), userLocation, OrderBy.valueOf(orderBy), maxResults);
+        } else if (maximumDistance > 0) {
+            return searchService.getStoresWithinDistance(keyword, maximumDistance, Units.valueOf(maximumDistanceUnit), TransportMode.valueOf(transportMode), userLocation, OrderBy.valueOf(orderBy), maxResults);
+        }
+        return null;
     }
 
 
     @RequestMapping(value = "/search/products")
-    public List<Product> getProducts(@RequestParam(value = "keywords") String keyword) {
+    public List<Product> getProducts(@RequestParam(value = "keywords") String keyword, @RequestParam(value = "category", defaultValue = "") String category,
+                                     @RequestParam(value = "orderBy", defaultValue = "NAME") String orderBy) {
         {
-            return searchService.getProducts(keyword);
+            //TODO  add sorting by category
+            return searchService.getProducts(keyword, category, OrderBy.valueOf(orderBy));
         }
-
-
     }
 
+    @RequestMapping(value = "/search/stores")
+    public List<Store> getProducts(@RequestParam(value = "keywords") String keyword, @RequestParam(value = "orderBy", defaultValue = "NAME") String orderBy) {
+        {
+            return searchService.getStores(keyword, OrderBy.valueOf(orderBy));
+        }
+    }
 }

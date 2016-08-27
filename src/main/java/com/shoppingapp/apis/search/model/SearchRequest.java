@@ -10,6 +10,7 @@ public class SearchRequest {
     private long maximimDistance;
     private long maximumTime;
     private String userLocation;
+    private int maxResults;
 
     public String getKeywords() {
         return keywords;
@@ -73,6 +74,14 @@ public class SearchRequest {
 
     public void setUserLocation(String userLocation) {
         this.userLocation = userLocation;
+    }
+
+    public int getMaxResults() {
+        return maxResults;
+    }
+
+    public void setMaxResults(int maxResults) {
+        this.maxResults = maxResults;
     }
 }
 

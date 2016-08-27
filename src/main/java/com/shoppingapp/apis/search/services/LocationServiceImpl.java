@@ -83,7 +83,6 @@ public class LocationServiceImpl {
             locationInfo.setDuration(Double.valueOf(durationString));
             String durationMinutes = node.get("rows").get("elements").get("duration").get("value").toString();
             locationInfo.setDuration(Double.valueOf(durationMinutes));
-
             return locationInfo;
         } catch (IOException e) {
 
