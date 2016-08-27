@@ -7,7 +7,6 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -30,7 +29,7 @@ public class ReviewDaoImpl implements ReviewDao {
         rating text
                 */
         String sql = "INSERT into  rating values(?,?,?,?)";
-        jdbcTemplate.update(sql, rating.getUserId(), rating.getProductId(), rating.getRatingId(), rating.getRating());
+        jdbcTemplate.update(sql, rating.getUserId(), rating.getStoreId(), rating.getRatingId(), rating.getRating());
     }
 
     @Override
@@ -42,21 +41,21 @@ public class ReviewDaoImpl implements ReviewDao {
         date text
         */
         String sql = "INSERT into comment values(?,?,?,?,?)";
-        jdbcTemplate.update(sql, comment.getUserId(), comment.getProductId(), comment.getCommentId(),comment.getComment(), comment.getDate());
+        jdbcTemplate.update(sql, comment.getUserId(), comment.getStoreId(), comment.getCommentId(),comment.getComment(), comment.getDate());
 
     }
 
     @Override
-    public List<Rating> getRatings(String productId) {
-        String sql = "select * from rating where product_id=?";
-        return jdbcTemplate.query(sql, new Object[]{productId}, new BeanPropertyRowMapper(Rating.class));
+    public List<Rating> getRatings(String storeId) {
+        String sql = "select * from rating where store_id=?";
+        return jdbcTemplate.query(sql, new Object[]{storeId}, new BeanPropertyRowMapper(Rating.class));
     }
 
     @Override
-    public List<Comment> getComments(String productId) {
+    public List<Comment> getComments(String storeId) {
 
-        String sql = "select * from comment where product_id=?";
-        return jdbcTemplate.query(sql, new Object[]{productId}, new BeanPropertyRowMapper(Comment.class));
+        String sql = "select * from comment where store_id=?";
+        return jdbcTemplate.query(sql, new Object[]{storeId}, new BeanPropertyRowMapper(Comment.class));
     }
 
 }

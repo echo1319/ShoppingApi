@@ -7,7 +7,7 @@ import java.util.UUID;
  */
 public class Comment {
     private String userId;
-    private String productId;
+    private String storeId;
     private String commentId;
     private String comment;
     private String date;
@@ -32,12 +32,12 @@ public class Comment {
         this.userId = userId;
     }
 
-    public String getProductId() {
-        return productId;
+    public String getStoreId() {
+        return storeId;
     }
 
-    public void setProductId(String productId) {
-        this.productId = productId;
+    public void setStoreId(String storeId) {
+        this.storeId = storeId;
     }
 
     public String getComment() {

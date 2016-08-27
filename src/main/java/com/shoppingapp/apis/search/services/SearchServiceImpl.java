@@ -71,6 +71,15 @@ public class SearchServiceImpl implements SearchService {
         return stores.stream().findFirst().get();
     }
 
+
+    @Override
+    public List<Product> getProducts(String keyword) {
+        List<Product> products = searchDao.getProduct(keyword);
+        return products;
+    }
+
+
+
     private double getHours(double mins) {
         return mins / 60;
     }

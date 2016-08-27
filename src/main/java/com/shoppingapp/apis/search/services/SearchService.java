@@ -1,9 +1,6 @@
 package com.shoppingapp.apis.search.services;
 
-import com.shoppingapp.apis.search.model.OrderBy;
-import com.shoppingapp.apis.search.model.Store;
-import com.shoppingapp.apis.search.model.TransportMode;
-import com.shoppingapp.apis.search.model.Units;
+import com.shoppingapp.apis.search.model.*;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,4 +18,6 @@ public interface SearchService {
     Store getStoreForProductByTime(String keyword, double maximumTime, String unit, OrderBy orderBy, String userLocation);
 
     Store getStoreForProduct(String keyword, OrderBy orderBy);
+
+    List<Product> getProducts(String keyword);
 }

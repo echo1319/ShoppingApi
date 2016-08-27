@@ -8,7 +8,7 @@ import java.util.UUID;
 public class Rating {
     private String rating;
     private String userId;
-    private String productId;
+    private String storeId;
     private String ratingId;
 
     public Rating() {
@@ -31,12 +31,12 @@ public class Rating {
         this.userId = userId;
     }
 
-    public String getProductId() {
-        return productId;
+    public String getStoreId() {
+        return storeId;
     }
 
-    public void setProductId(String productId) {
-        this.productId = productId;
+    public void setStoreId(String storeId) {
+        this.storeId = storeId;
     }
 
     public String getRatingId() {

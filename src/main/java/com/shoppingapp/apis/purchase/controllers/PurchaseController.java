@@ -15,7 +15,6 @@ public class PurchaseController {
     @Autowired
     private OrderService orderService;
 
-    //TODO check later how to pass order by value
     @RequestMapping(value = "/order/add")
     public void addOrder(@RequestParam(value = "order") Order order)
             throws Exception {

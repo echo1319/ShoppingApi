@@ -39,6 +39,16 @@ public class SearchDaoImpl implements SearchDao {
         return stores;
     }
 
+    @Override
+    public List<Product> getProduct(String keyword) {
+        String sql = "select  * + from product p " +
+                "+ where p.name like '%" + keyword + "%' ORDER by p.name asc";
+
+        List<Product> products = jdbcTemplate.query(sql, new BeanPropertyRowMapper(Product.class));
+
+        return products;
+
+    }
 
 
 }

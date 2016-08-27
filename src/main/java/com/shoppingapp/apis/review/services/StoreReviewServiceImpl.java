@@ -13,30 +13,30 @@ import java.util.List;
  */
 
 @Service
-public class ProductReviewServiceImpl implements ProductReviewService {
+public class StoreReviewServiceImpl implements StoreReviewService {
     @Autowired
     private ReviewDao reviewDao;
 
     @Override
-    public void addComment(String body, String userId, String productId, String date) {
+    public void addComment(String body, String userId, String storeId, String date) {
         Comment comment = new Comment();
         comment.setUserId(userId);
-        comment.setProductId(productId);
+        comment.setStoreId(storeId);
         comment.setComment(body);
         comment.setDate(date);
         reviewDao.addComment(comment);
     }
 
     @Override
-    public List<Comment> getComments(String productId) {
-        return reviewDao.getComments(productId);
+    public List<Comment> getComments(String storeId) {
+        return reviewDao.getComments(storeId);
 
     }
 
     @Override
-    public void addRating(String productId, String rate, String userId) {
+    public void addRating(String storeId, String rate, String userId) {
         Rating rating = new Rating();
-        rating.setProductId(productId);
+        rating.setStoreId(storeId);
         rating.setUserId(userId);
         rating.setRating(rate);
         reviewDao.addRating(rating);
@@ -44,8 +44,8 @@ public class ProductReviewServiceImpl implements ProductReviewService {
     }
 
     @Override
-    public List<Rating> getRatings(String productId) {
-        return reviewDao.getRatings(productId);
+    public List<Rating> getRatings(String storeId) {
+        return reviewDao.getRatings(storeId);
     }
 
 }

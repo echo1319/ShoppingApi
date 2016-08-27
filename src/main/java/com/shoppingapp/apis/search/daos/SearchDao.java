@@ -12,5 +12,6 @@ import java.util.List;
 public interface SearchDao {
 
     public List<Store> getStores(String keyword, OrderBy orderBy);
+    public List<Product> getProduct(String keyword);
 
 }

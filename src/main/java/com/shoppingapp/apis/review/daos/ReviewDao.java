@@ -16,8 +16,8 @@ public interface ReviewDao {
 
     public void addComment(Comment comment);
 
-    public List<Rating> getRatings(String productId);
+    public List<Rating> getRatings(String storeId);
 
-    public List<Comment> getComments(String productId);
+    public List<Comment> getComments(String storeId);
 
 }
