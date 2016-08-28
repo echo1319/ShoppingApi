@@ -12,7 +12,7 @@ public class LocationServiceTest {
 
 
     @Test
-    public void getLocationFromJson() {
+    public void getLocationFromJson() throws IOException {
         String json = "{\n" +
                 "   \"destination_addresses\" : [ \"Andrea Papandreou 35, Marousi 151 22, Greece\" ],\n" +
                 "   \"origin_addresses\" : [ \"Eth. Antistaseos 48, Dafni 172 37, Greece\" ],\n" +
@@ -36,40 +36,10 @@ public class LocationServiceTest {
                 "   \"status\" : \"OK\"\n" +
                 "}";
 
-        System.out.println(getLocation(json));
-    }
 
-
-    public LocationInfo getLocation(String res) {
-
-
-        if (res == null || res.isEmpty()) {
-            return null;
-        }
-
-        JsonNode node = null;
-
-        try {
-            node = JsonLoader.fromString(res);
-            LocationInfo locationInfo = new LocationInfo();
-
-            System.out.println(node.get("rows").get(0).get("elements").get(0).get("distance").get("text"));
-
-            String distanceString = node.get("rows").get("elements").get("distance").get("text").toString();
-
-            locationInfo.setDistance(distanceString);
-            String distanceMeters = node.get("rows").get("elements").get("distance").get("value").toString();
-            locationInfo.setDistanceMeters(Double.valueOf(distanceMeters));
-            String durationString = node.get("rows").get("elements").get("duration").get("text").toString();
-            locationInfo.setDuration(durationString);
-            String durationMinutes = node.get("rows").get("elements").get("duration").get("value").toString();
-            locationInfo.setDuration(durationMinutes);
-            return locationInfo;
-        } catch (IOException e) {
-
-        }
-
-        return null;
+        JsonNode node = JsonLoader.fromString(json);
+        LocationInfo locationInfo = new LocationInfo();
+        System.out.println(node.get("rows").get(0).get("elements").get(0).get("distance").get("text"));
     }
 
     @Test

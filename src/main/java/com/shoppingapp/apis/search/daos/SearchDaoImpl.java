@@ -17,6 +17,7 @@ public class SearchDaoImpl implements SearchDao {
 
     private JdbcTemplate jdbcTemplate;
 
+    //TODO capitalize-ignore case in  search string
     @Autowired
     public SearchDaoImpl(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;

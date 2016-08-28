@@ -11,7 +11,7 @@ public class Product implements Serializable {
     private String name;
     private String category;
     private String description;
-
+    private double price;
 
     public Product() {
         this.productId = UUID.randomUUID().toString();
@@ -25,7 +25,7 @@ public class Product implements Serializable {
         this.price = price;
     }
 
-    private double price;
+
 
     public String getProductId() {
         return productId;

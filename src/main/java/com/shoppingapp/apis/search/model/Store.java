@@ -9,6 +9,10 @@ public class Store implements Serializable {
     private String country;
     private String site;
     private String logo;
+    private String rating;
+    //TODO modify query to include price and rating  (sum)
+    private double price;
+
 
     public double getPrice() {
         return price;
@@ -18,7 +22,6 @@ public class Store implements Serializable {
         this.price = price;
     }
 
-    private double price;
 
     public String getStoreId() {
         return storeId;
@@ -68,5 +71,13 @@ public class Store implements Serializable {
 
     public void setLogo(String logo) {
         this.logo = logo;
+    }
+
+    public String getRating() {
+        return rating;
+    }
+
+    public void setRating(String rating) {
+        this.rating = rating;
     }
 }

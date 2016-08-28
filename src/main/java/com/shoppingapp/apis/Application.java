@@ -8,6 +8,8 @@ import jdk.nashorn.internal.runtime.Context;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.context.web.SpringBootServletInitializer;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -19,13 +21,18 @@ import java.util.Arrays;
 
 @Configuration
 @EnableAutoConfiguration
-public class Application {
-    public static void main(String[] args) {
+public class Application extends SpringBootServletInitializer {
 
-        ApplicationContext ctx = SpringApplication.run(Application.class, args);
-   /* Read more :http://mrbool.com/rest-server-with-spring-data-spring-boot-and-postgresql/34023#ixzz40oAA4qI3*/
-
+    @Override
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+        return application.sources(Application.class);
     }
+
+    public static void main(String[] args) {
+        SpringApplication.run(Application.class, args);
+   
+    }
+
 }
 
 
