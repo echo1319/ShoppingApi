@@ -14,16 +14,14 @@ public class StoreReviewController {
     @Autowired
     private StoreReviewService storeReviewService;
 
-    @RequestMapping(value = "/store/{storeId}/review", method = RequestMethod.POST)
-    public void addReview(@RequestBody Review review, @PathVariable String storeId)
+    @RequestMapping(value = "/review/add", method = RequestMethod.POST)
+    public void addReview(@RequestBody Review review)
             throws Exception {
         storeReviewService.addReview(review);
     }
 
-    @RequestMapping(value = "/store/{storeId}/review/get", method = RequestMethod.GET)
-    public List<Review> getReviews(@PathVariable String storeId) throws Exception {
+    @RequestMapping(value = "/review/get", method = RequestMethod.GET)
+    public List<Review> getReviews(@RequestParam(name = "storeId") String storeId) throws Exception {
         return storeReviewService.getReviews(storeId);
     }
-
-
 }

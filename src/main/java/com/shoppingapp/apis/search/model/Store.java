@@ -11,7 +11,6 @@ public class Store implements Serializable {
     private String logo;
     private String rating;
     private double price;
-
     private double distance;
 
     public double getPrice() {

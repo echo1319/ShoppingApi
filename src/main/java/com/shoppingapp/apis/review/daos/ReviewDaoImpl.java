@@ -31,8 +31,9 @@ public class ReviewDaoImpl implements ReviewDao {
                 "FROM new_values WHERE NOT EXISTS " +
                 " ( SELECT 1 FROM upsert up " +
                 "  WHERE up.store_id = new_values.store_id  AND up.user_id=new_values.user_id)";
+
         System.out.println("Review is " + review.toString());
-        sql = String.format(sql, review.getShopId(), review.getUserId(), review.getRating(), review.getComment(), review.getDate());
+        sql = String.format(sql, review.getStoreId(), review.getUserId(), review.getRating(), review.getComment(), review.getRdate());
         jdbcTemplate.update(sql);
     }
 

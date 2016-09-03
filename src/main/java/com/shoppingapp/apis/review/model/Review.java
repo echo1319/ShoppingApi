@@ -1,27 +1,13 @@
 package com.shoppingapp.apis.review.model;
 
 import java.io.Serializable;
-import java.util.UUID;
 
 public class Review implements Serializable {
-    private String reviewId;
     private String comment;
     private double rating;
     private String userId;
-    private String shopId;
-    private String date;
-
-    public Review() {
-        this.reviewId = UUID.randomUUID().toString();
-    }
-
-    public String getReviewId() {
-        return reviewId;
-    }
-
-    public void setReviewId(String reviewId) {
-        this.reviewId = reviewId;
-    }
+    private String storeId;
+    private String rdate;
 
     public String getComment() {
         return comment;
@@ -47,31 +33,29 @@ public class Review implements Serializable {
         this.userId = userId;
     }
 
-    public String getShopId() {
-        return shopId;
+    public String getStoreId() {
+        return storeId;
     }
 
-    public void setShopId(String shopId) {
-        this.shopId = shopId;
+    public void setStoreId(String storeId) {
+        this.storeId = storeId;
     }
 
-    public String getDate() {
-        return date;
+    public String getRdate() {
+        return rdate;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setRdate(String rdate) {
+        this.rdate = rdate;
     }
 
     @Override
     public String toString() {
-        return "Review{" +
-                "reviewId='" + reviewId + '\'' +
-                ", comment='" + comment + '\'' +
+        return "Review{ comment='" + comment + '\'' +
                 ", rating=" + rating +
                 ", userId='" + userId + '\'' +
-                ", shopId='" + shopId + '\'' +
-                ", date='" + date + '\'' +
+                ", storeId='" + storeId + '\'' +
+                ", rdate='" + rdate + '\'' +
                 '}';
     }
 }
