@@ -10,9 +10,9 @@ public class Store implements Serializable {
     private String site;
     private String logo;
     private String rating;
-    //TODO modify query to include price and rating  (sum)
     private double price;
 
+    private double distance;
 
     public double getPrice() {
         return price;
@@ -79,5 +79,13 @@ public class Store implements Serializable {
 
     public void setRating(String rating) {
         this.rating = rating;
+    }
+
+    public double getDistance() {
+        return distance;
+    }
+
+    public void setDistance(double distance) {
+        this.distance = distance;
     }
 }

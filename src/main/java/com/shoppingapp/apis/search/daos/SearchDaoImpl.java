@@ -17,7 +17,6 @@ public class SearchDaoImpl implements SearchDao {
 
     private JdbcTemplate jdbcTemplate;
 
-    //TODO capitalize-ignore case in  search string
     @Autowired
     public SearchDaoImpl(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
@@ -28,7 +27,7 @@ public class SearchDaoImpl implements SearchDao {
 
         String sql = "select  s.store_id ,s.name ,s.address ,s.country , sp.price " +
                 " from product p ,store_product sp, store s" +
-                " where p.name like '%" + keyword + "%' and sp.store_id=s.store_id " +
+                " where  LOWER(p.name) like '%" + keyword.toLowerCase() + "%' and sp.store_id=s.store_id " +
                 "and sp.product_id= p.product_id ";
 
         if (orderBy == OrderBy.PRICE) {
@@ -43,7 +42,7 @@ public class SearchDaoImpl implements SearchDao {
     @Override
     public List<Store> getStores(String keyword, OrderBy orderBy) {
 
-        String sql = "select * from store s where s.name like '%" + keyword + "%'";
+        String sql = "select * from store s where LOWER(s.name) like '%" + keyword.toLowerCase() + "%'";
 
         if (orderBy == OrderBy.NAME) {
             sql += " order by s.name asc ";
@@ -57,7 +56,7 @@ public class SearchDaoImpl implements SearchDao {
     @Override
     public List<Product> getProduct(String keyword, String category, OrderBy orderBy) {
 
-        String sql = "select  * from product p  where p.name like '%" + keyword + "%'";
+        String sql = "select  * from product p  where LOWER(p.name) like '%" + keyword.toLowerCase() + "%'";
 
         if (!category.isEmpty()) {
             sql += " GROUP by p.category ";
@@ -68,7 +67,6 @@ public class SearchDaoImpl implements SearchDao {
         } else if (orderBy == OrderBy.NAME) {
             sql += " ORDER by p." + OrderBy.NAME + " asc ";
         }
-
 
         List<Product> products = jdbcTemplate.query(sql, new BeanPropertyRowMapper(Product.class));
 

@@ -18,23 +18,18 @@ public class SearchServiceImpl implements SearchService {
     @Autowired
     private LocationServiceImpl locationService;
 
-    //TODO add geolocation hecks here
-
     @Override
     public List<Store> getStoresWithinDistance(String keyword, final double maximumDistance, final Units unit, final TransportMode transportMode, final String userLocation, final OrderBy orderBy, int maxResults) {
         try {
 
             List<Store> stores = searchDao.getStoresForProduct(keyword, OrderBy.NONE);
 
-            List resultsList = (List<Store>) stores.stream().filter(new Predicate<Store>() {
-                @Override
-                public boolean test(Store store) {
-                    LocationInfo locationInfo = locationService.getDistance(userLocation, store.getAddress(), transportMode);
-                    if (unit.equals(Units.KM)) {
-                        return locationInfo.getDistanceMeters() <= getMeters(maximumDistance);
-                    } else {
-                        return locationInfo.getDistanceMeters() <= maximumDistance;
-                    }
+            List resultsList = (List<Store>) stores.stream().filter(store -> {
+                LocationInfo locationInfo = locationService.getDistance(userLocation, store.getAddress(), transportMode);
+                if (unit.equals(Units.KM)) {
+                    return locationInfo.getDistanceMeters() <= getMeters(maximumDistance);
+                } else {
+                    return locationInfo.getDistanceMeters() <= maximumDistance;
                 }
             }).sorted(((orderBy.equals(OrderBy.DISTANCE)) ? new DistanceComparator(userLocation, transportMode) : new PriceComparator())).collect(Collectors.<Store>toList());
 
@@ -110,11 +105,9 @@ public class SearchServiceImpl implements SearchService {
         public int compare(Store o1, Store o2) {
             LocationInfo locationInfoA = locationService.getDistance(userLocation, o1.getAddress(), transportMode);
             LocationInfo locationInfoB = locationService.getDistance(userLocation, o2.getAddress(), transportMode);
-            if (locationInfoA.getDistanceMeters() - locationInfoB.getDistanceMeters() > 0) {
-                return 1;
-            }
-            return 0;
-
+            o1.setDistance(locationInfoA.getDistanceMeters());
+            o2.setDistance(locationInfoB.getDistanceMeters());
+            return Double.compare(locationInfoA.getDistanceMeters(), locationInfoB.getDistanceMeters());
         }
     }
 
@@ -133,10 +126,10 @@ public class SearchServiceImpl implements SearchService {
         public int compare(Store o1, Store o2) {
             LocationInfo locationInfoA = locationService.getDistance(userLocation, o1.getAddress(), transportMode);
             LocationInfo locationInfoB = locationService.getDistance(userLocation, o2.getAddress(), transportMode);
-            if (locationInfoA.getDurationMinutes() - locationInfoB.getDurationMinutes() > 0) {
-                return 1;
-            }
-            return 0;
+            o1.setDistance(locationInfoA.getDurationMinutes());
+            o1.setDistance(locationInfoB.getDurationMinutes());
+
+            return Double.compare(locationInfoA.getDurationMinutes(), locationInfoB.getDurationMinutes());
 
         }
     }

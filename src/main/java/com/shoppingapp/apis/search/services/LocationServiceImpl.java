@@ -38,8 +38,6 @@ public class LocationServiceImpl {
         String args = "?key=" + apiKey + "&mode=" + mode + "&origins=" + source + "&destinations=" + destination;
         String urlString = googleUrl + output + args;
         String res = callURL(urlString);
-        System.out.println(urlString);
-
         return getLocation(res);
 
     }
