@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface StoreReviewService {
 
-    void addReview(String userId, String storeId, String date, String comment, Double rating);
+    void addReview(Review review);
 
     List<Review> getReviews(String storeId);
 

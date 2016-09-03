@@ -14,13 +14,7 @@ public class StoreReviewServiceImpl implements StoreReviewService {
 
 
     @Override
-    public void addReview(String userId, String storeId, String date, String comment, Double rating) {
-        Review review = new Review();
-        review.setUserId(userId);
-        review.setShopId(storeId);
-        review.setComment(comment);
-        review.setRating(rating);
-        review.setDate(date);
+    public void addReview(Review review) {
         reviewDao.addReview(review);
     }
 

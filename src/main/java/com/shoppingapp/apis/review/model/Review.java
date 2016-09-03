@@ -1,8 +1,9 @@
 package com.shoppingapp.apis.review.model;
 
+import java.io.Serializable;
 import java.util.UUID;
 
-public class Review {
+public class Review implements Serializable {
     private String reviewId;
     private String comment;
     private double rating;
@@ -62,4 +63,15 @@ public class Review {
         this.date = date;
     }
 
+    @Override
+    public String toString() {
+        return "Review{" +
+                "reviewId='" + reviewId + '\'' +
+                ", comment='" + comment + '\'' +
+                ", rating=" + rating +
+                ", userId='" + userId + '\'' +
+                ", shopId='" + shopId + '\'' +
+                ", date='" + date + '\'' +
+                '}';
+    }
 }

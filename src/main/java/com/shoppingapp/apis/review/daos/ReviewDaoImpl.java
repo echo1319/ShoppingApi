@@ -20,7 +20,7 @@ public class ReviewDaoImpl implements ReviewDao {
 
     @Override
     public void addReview(Review review) {
-        String sql = "WITH new_values (store_id, user_id, rating,comment,rdate) as ( values ('%s', '%s', '%f','%s','%s') )," +
+        String sql = "WITH new_values (store_id, user_id, rating,comment,rdate) as ( values ('%s', '%s', %f,'%s','%s') )," +
                 " upsert as " +
                 " (update review m " +
                 " set store_id=nv.store_id, user_id = nv.user_id, rating= nv.rating , comment=nv.comment, rdate=nv.rdate " +
@@ -31,7 +31,7 @@ public class ReviewDaoImpl implements ReviewDao {
                 "FROM new_values WHERE NOT EXISTS " +
                 " ( SELECT 1 FROM upsert up " +
                 "  WHERE up.store_id = new_values.store_id  AND up.user_id=new_values.user_id)";
-
+        System.out.println("Review is " + review.toString());
         sql = String.format(sql, review.getShopId(), review.getUserId(), review.getRating(), review.getComment(), review.getDate());
         jdbcTemplate.update(sql);
     }

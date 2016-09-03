@@ -15,17 +15,13 @@ public class StoreReviewController {
     private StoreReviewService storeReviewService;
 
     @RequestMapping(value = "/store/{storeId}/review", method = RequestMethod.POST)
-    public void addComment(@RequestParam(value = "comment") String comment,
-                           @RequestParam(value = "comment") double rating,
-                           @RequestParam(value = "userId") String userId,
-                           @PathVariable(value = "storeId") String storeId,
-                           @RequestParam(value = "date") String date)
+    public void addReview(@RequestBody Review review, @PathVariable String storeId)
             throws Exception {
-        storeReviewService.addReview(userId, storeId, date, comment, rating);
+        storeReviewService.addReview(review);
     }
 
-    @RequestMapping(value = "/store/{storeId}/review/get")
-    public List<Review> getComments(@PathVariable(value = "storeId") String storeId) throws Exception {
+    @RequestMapping(value = "/store/{storeId}/review/get", method = RequestMethod.GET)
+    public List<Review> getReviews(@PathVariable String storeId) throws Exception {
         return storeReviewService.getReviews(storeId);
     }
 
