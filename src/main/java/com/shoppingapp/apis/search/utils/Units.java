@@ -1,4 +1,4 @@
-package com.shoppingapp.apis.search.model;
+package com.shoppingapp.apis.search.utils;
 
 import java.io.Serializable;
 

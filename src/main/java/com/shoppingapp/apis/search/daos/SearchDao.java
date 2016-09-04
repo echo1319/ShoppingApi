@@ -1,8 +1,8 @@
 package com.shoppingapp.apis.search.daos;
 
-import com.shoppingapp.apis.search.model.OrderBy;
 import com.shoppingapp.apis.search.model.Product;
 import com.shoppingapp.apis.search.model.Store;
+import com.shoppingapp.apis.search.utils.OrderBy;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

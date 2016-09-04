@@ -1,9 +1,8 @@
 package com.shoppingapp.apis.search.daos;
 
-import com.shoppingapp.apis.purchase.model.Order;
-import com.shoppingapp.apis.search.model.OrderBy;
 import com.shoppingapp.apis.search.model.Product;
 import com.shoppingapp.apis.search.model.Store;
+import com.shoppingapp.apis.search.utils.OrderBy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
