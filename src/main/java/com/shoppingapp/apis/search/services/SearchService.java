@@ -1,6 +1,8 @@
 package com.shoppingapp.apis.search.services;
 
 import com.shoppingapp.apis.search.model.*;
+import com.shoppingapp.apis.search.utils.OrderBy;
+import com.shoppingapp.apis.search.utils.Units;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

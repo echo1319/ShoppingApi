@@ -1,12 +1,13 @@
 package com.shoppingapp.apis.search.controllers;
 
-import com.shoppingapp.apis.purchase.model.Order;
-import com.shoppingapp.apis.purchase.services.OrderService;
-import com.shoppingapp.apis.search.model.*;
+import com.shoppingapp.apis.search.model.Product;
+import com.shoppingapp.apis.search.model.Store;
+import com.shoppingapp.apis.search.model.TransportMode;
 import com.shoppingapp.apis.search.services.SearchService;
+import com.shoppingapp.apis.search.utils.OrderBy;
+import com.shoppingapp.apis.search.utils.Units;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,7 +31,8 @@ public class SearchController {
                                                      @RequestParam(value = "orderBy", defaultValue = "DISTANCE") String orderBy,
                                                      @RequestParam(value = "maxResults", defaultValue = "0") int maxResults) {
         if (maximumTime > 0) {
-            return searchService.getStoresWithinTime(keyword, maximumTime, Units.valueOf(unit), TransportMode.valueOf(transportMode), userLocation, OrderBy.valueOf(orderBy), maxResults);
+            return searchService.getStoresWithinTime(keyword, maximumTime, Units.valueOf(unit), TransportMode.valueOf(transportMode), userLocation,
+                    OrderBy.valueOf(orderBy), maxResults);
         } else if (maximumDistance > 0) {
             return searchService.getStoresWithinDistance(keyword, maximumDistance, Units.valueOf(unit), TransportMode.valueOf(transportMode), userLocation, OrderBy.valueOf(orderBy), maxResults);
         }
