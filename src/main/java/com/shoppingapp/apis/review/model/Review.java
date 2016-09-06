@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class Review implements Serializable {
     private String comment;
     private double rating;
-    private String userId;
+    private String username;
     private String storeId;
     private String rdate;
 
@@ -25,12 +25,12 @@ public class Review implements Serializable {
         this.rating = rating;
     }
 
-    public String getUserId() {
-        return userId;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getStoreId() {
@@ -53,7 +53,7 @@ public class Review implements Serializable {
     public String toString() {
         return "Review{ comment='" + comment + '\'' +
                 ", rating=" + rating +
-                ", userId='" + userId + '\'' +
+                ", username='" + username + '\'' +
                 ", storeId='" + storeId + '\'' +
                 ", rdate='" + rdate + '\'' +
                 '}';

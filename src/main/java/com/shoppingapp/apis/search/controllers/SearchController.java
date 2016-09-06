@@ -44,7 +44,7 @@ public class SearchController {
     public List<Product> getProducts(@RequestParam(value = "keywords") String keyword, @RequestParam(value = "category", defaultValue = "") String category,
                                      @RequestParam(value = "orderBy", defaultValue = "NAME") String orderBy) {
         {
-            //TODO  add sorting by category
+
             return searchService.getProducts(keyword, category, OrderBy.valueOf(orderBy));
         }
     }

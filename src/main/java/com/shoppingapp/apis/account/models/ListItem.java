@@ -5,9 +5,7 @@ public class ListItem {
     private String storeId;
     private double price;
 
-    public String getProductId() {
-        return productId;
-    }
+    public String getProductId() {return productId;}
 
     public void setProductId(String productId) {
         this.productId = productId;
@@ -25,7 +23,5 @@ public class ListItem {
         return price;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
-    }
+    public void setPrice(double price) {this.price = price;}
 }

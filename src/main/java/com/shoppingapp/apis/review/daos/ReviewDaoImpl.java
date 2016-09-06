@@ -33,7 +33,7 @@ public class ReviewDaoImpl implements ReviewDao {
                 "  WHERE up.store_id = new_values.store_id  AND up.user_id=new_values.user_id)";
 
         System.out.println("Review is " + review.toString());
-        sql = String.format(sql, review.getStoreId(), review.getUserId(), review.getRating(), review.getComment(), review.getRdate());
+        sql = String.format(sql, review.getStoreId(), review.getUsername(), review.getRating(), review.getComment(), review.getRdate());
         jdbcTemplate.update(sql);
     }
 

@@ -50,9 +50,9 @@ public class SearchDaoImpl implements SearchDao {
     @Override
     public List<Product> getProduct(String keyword, String category, OrderBy orderBy) {
 
-        String sql = "select p.name, p.category, p.description, t.price from product p , " +
-                "( select  min(sp.price) as price , sp.product_id from store_product sp group by sp.product_id ) as t " +
-                " where t.product_id=p.product_id and  LOWER(p.name) like '%" + keyword.toLowerCase() + "%' ";
+        String sql = " select p.name, p.category, p.description, t.price from product p , " +
+                " ( select  min(sp.price) as price , sp.product_id from store_product sp group by sp.product_id ) as t " +
+                " where t.product_id=p.product_id and  LOWER(p.name) like '%" + keyword.toLowerCase() + "%'";
 
         if (!category.isEmpty()) {
             sql += " GROUP by p.category ";
@@ -63,7 +63,7 @@ public class SearchDaoImpl implements SearchDao {
         } else if (orderBy == OrderBy.NAME) {
             sql += " ORDER by p." + OrderBy.NAME + " asc ";
         } else if (orderBy == orderBy.PRICE) {
-            sql += " GROUP BY p.product_id , p.name, p.description , p.category, sp.price ORDER by sp." + OrderBy.PRICE + " asc ";
+            sql += "ORDER by t." + OrderBy.PRICE + " asc ";
         }
 
         List<Product> products = jdbcTemplate.query(sql, new BeanPropertyRowMapper(Product.class));

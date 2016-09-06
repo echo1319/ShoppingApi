@@ -5,7 +5,7 @@ import com.github.fge.jackson.JsonLoader;
 import com.google.common.annotations.VisibleForTesting;
 import com.shoppingapp.apis.search.model.LocationInfo;
 import com.shoppingapp.apis.search.model.TransportMode;
-import com.shoppingapp.apis.search.model.Units;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestMapping;
