@@ -21,7 +21,7 @@ public class OrderDaoImpl implements OrderDao {
     public void saveOrder(Order order) {
 
         jdbcTemplate.update("INSERT INTO orders values (?,?,?,?,?,?)", order.getOrder_id(), order.getOrderDate(),
-                order.getShopId(), order.getProductId(), order.getPrice(), order.getUserId());
+                order.getShopId(), order.getProductId(), order.getPrice(), order.getusername());
     }
 
     @Override
@@ -31,9 +31,9 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     @Override
-    public List<Order> getOrdersForUser(String userId) {
+    public List<Order> getOrdersForUser(String username) {
         return (List<Order>) jdbcTemplate.queryForObject(
-                "select * from orders where user_id =?", new Object[]{userId},
+                "select * from orders where username =?", new Object[]{username},
                 new BeanPropertyRowMapper(Order.class));
     }
 }

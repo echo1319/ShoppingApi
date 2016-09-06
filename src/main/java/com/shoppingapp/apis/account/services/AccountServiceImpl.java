@@ -13,22 +13,22 @@ public class AccountServiceImpl implements AccountService {
     private AccountDao accountDao;
 
     @Override
-    public void addItem(String userId, String productId, String storeId, double price) {
-        accountDao.addItem(userId, productId, storeId, price);
+    public void addItem(String username, String productId, String storeId, double price) {
+        accountDao.addItem(username, productId, storeId, price);
     }
 
     @Override
-    public void updateItem(String userId, String productId, String storeId, double price) {
-        accountDao.updateItem(userId, productId, storeId, price);
+    public void updateItem(String username, String productId, String storeId, double price) {
+        accountDao.updateItem(username, productId, storeId, price);
     }
 
     @Override
-    public void deleteItem(String userId, String productId, String storeId) {
-        accountDao.deleteItem(userId, productId, storeId);
+    public void deleteItem(String username, String productId, String storeId) {
+        accountDao.deleteItem(username, productId, storeId);
     }
 
     @Override
-    public List<ListItem> getProductList(String userId) {
-        return accountDao.getProductList(userId);
+    public List<ListItem> getProductList(String username) {
+        return accountDao.getProductList(username);
     }
 }

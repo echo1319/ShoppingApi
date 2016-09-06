@@ -7,11 +7,11 @@ import java.util.List;
 
 public interface AccountDao {
 
-    void addItem(String userId, String productId, String storeId, double price);
+    void addItem(String username, String productId, String storeId, double price);
 
-    void updateItem(String userId, String productId, String storeId, double price);
+    void updateItem(String username, String productId, String storeId, double price);
 
-    void deleteItem(String userId, String productId, String storeId);
+    void deleteItem(String username, String productId, String storeId);
 
-    List<ListItem> getProductList(String userId);
+    List<ListItem> getProductList(String username);
 }

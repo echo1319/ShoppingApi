@@ -27,9 +27,9 @@ public class PurchaseController {
     }
 
     //TODO check later!!
-    @RequestMapping(value = "/order/getByUser/{userId}")
-    public List<Order> getOrderByUser(@PathVariable(value = "userId") String userId) throws Exception {
-        return orderService.getOrdersForUser(userId);
+    @RequestMapping(value = "/order/getByUser/{username}")
+    public List<Order> getOrderByUser(@PathVariable(value = "username") String username) throws Exception {
+        return orderService.getOrdersForUser(username);
     }
 
 

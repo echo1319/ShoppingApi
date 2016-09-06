@@ -13,7 +13,7 @@ public class Order implements Serializable {
     private String productId;
     private String productName;
     private double price;
-    private String userId;
+    private String username;
 
     public Order() {
         this.setOrder_id(UUID.randomUUID().toString());
@@ -67,11 +67,11 @@ public class Order implements Serializable {
         this.price = price;
     }
 
-    public String getUserId() {
-        return userId;
+    public String getusername() {
+        return username;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setusername(String username) {
+        this.username = username;
     }
 }

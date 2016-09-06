@@ -20,17 +20,17 @@ public class ReviewDaoImpl implements ReviewDao {
 
     @Override
     public void addReview(Review review) {
-        String sql = "WITH new_values (store_id, user_id, rating,comment,rdate) as ( values ('%s', '%s', %f,'%s','%s') )," +
+        String sql = "WITH new_values (store_id, username, rating,comment,rdate) as ( values ('%s', '%s', %f,'%s','%s') )," +
                 " upsert as " +
                 " (update review m " +
-                " set store_id=nv.store_id, user_id = nv.user_id, rating= nv.rating , comment=nv.comment, rdate=nv.rdate " +
+                " set store_id=nv.store_id, username = nv.username, rating= nv.rating , comment=nv.comment, rdate=nv.rdate " +
                 " FROM new_values nv " +
-                "WHERE m.store_id = nv.store_id AND m.user_id=nv.user_id RETURNING m.*) " +
-                "INSERT INTO review (store_id, user_id, rating, comment,rdate ) " +
-                "SELECT store_id, user_id, rating ,comment, rdate " +
+                "WHERE m.store_id = nv.store_id AND m.username=nv.username RETURNING m.*) " +
+                "INSERT INTO review (store_id, username, rating, comment,rdate ) " +
+                "SELECT store_id, username, rating ,comment, rdate " +
                 "FROM new_values WHERE NOT EXISTS " +
                 " ( SELECT 1 FROM upsert up " +
-                "  WHERE up.store_id = new_values.store_id  AND up.user_id=new_values.user_id)";
+                "  WHERE up.store_id = new_values.store_id  AND up.username=new_values.username)";
 
         System.out.println("Review is " + review.toString());
         sql = String.format(sql, review.getStoreId(), review.getUsername(), review.getRating(), review.getComment(), review.getRdate());

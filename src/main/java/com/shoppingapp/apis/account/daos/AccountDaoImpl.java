@@ -19,26 +19,26 @@ public class AccountDaoImpl implements AccountDao {
     }
 
     @Override
-    public void addItem(String userId, String productId, String storeId, double price) {
-        jdbcTemplate.update("INSERT INTO list (user_id, product_id, store_id,price)" +
-                " values (?,?,?,?)", userId, productId, storeId, price);
+    public void addItem(String username, String productId, String storeId, double price) {
+        jdbcTemplate.update(" INSERT INTO list (username, product_id, store_id,price)" +
+                " values (?,?,?,?)", username, productId, storeId, price);
     }
 
     @Override
-    public void updateItem(String userId, String productId, String storeId, double price) {
-        jdbcTemplate.update("update list set store_id=?,price=? where user_id =? and product_id=?",
-                storeId, price, userId, productId);
+    public void updateItem(String username, String productId, String storeId, double price) {
+        jdbcTemplate.update(" update list set store_id=?,price=? where username =? and product_id=? ",
+                storeId, price, username, productId);
     }
 
     @Override
-    public void deleteItem(String userId, String productId, String storeId) {
-        jdbcTemplate.update("delete from  list  where user_id =? and product_id=? and storeId=?",
-                userId, productId, storeId);
+    public void deleteItem(String username, String productId, String storeId) {
+        jdbcTemplate.update("delete from  list  where username =? and product_id=? and storeId=?",
+                username, productId, storeId);
     }
 
     @Override
-    public List<ListItem> getProductList(String userId) {
-        String sql = "select product_id,store_id, price from list where user_id==? ";
-        return jdbcTemplate.query(sql, new Object[]{userId}, new BeanPropertyRowMapper(ListItem.class));
+    public List<ListItem> getProductList(String username) {
+        String sql = "select product_id,store_id, price from list where username==? ";
+        return jdbcTemplate.query(sql, new Object[]{username}, new BeanPropertyRowMapper(ListItem.class));
     }
 }

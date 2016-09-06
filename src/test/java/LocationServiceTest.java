@@ -45,17 +45,17 @@ public class LocationServiceTest {
     @Test
     public void testFormat() {
 
-        String sql = "WITH new_values (store_id, user_id, rating) as ( values ('%s', '%s', '%s'))," +
+        String sql = "WITH new_values (store_id, username, rating) as ( values ('%s', '%s', '%s'))," +
                 " upsert as " +
                 " (update rating m " +
-                " set store_id=nv.store_id, user_id = nv.user_id, rating= nv.rating " +
+                " set store_id=nv.store_id, username = nv.username, rating= nv.rating " +
                 " FROM new_values nv " +
-                "WHERE m.store_id = nv.store_id AND m.user_id=nv.user_id RETURNING m.*) " +
-                "INSERT INTO rating (store_id, user_id, rating) " +
-                "SELECT store_id, user_id, rating " +
+                "WHERE m.store_id = nv.username AND m.username=nv.username RETURNING m.*) " +
+                "INSERT INTO rating (store_id, username, rating) " +
+                "SELECT store_id, username, rating " +
                 "FROM new_values  WHERE NOT EXISTS " +
                 "(SELECT 1 FROM upsert up" +
-                " WHERE up.store_id = new_values.store_id  AND up.user_id=new_values.user_id)";
+                " WHERE up.store_id = new_values.store_id  AND up.username=new_values.username)";
 
         sql = String.format(sql, "1", "2", "3");
         System.out.println(sql

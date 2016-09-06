@@ -14,5 +14,5 @@ public interface OrderDao {
 
     public Order getOrder(String orderId);
 
-    public List<Order> getOrdersForUser(String userId);
+    public List<Order> getOrdersForUser(String username);
 }

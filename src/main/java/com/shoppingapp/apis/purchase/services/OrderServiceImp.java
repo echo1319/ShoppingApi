@@ -20,8 +20,8 @@ public class OrderServiceImp implements OrderService {
         return orderDao.getOrder(orderId);
     }
 
-    public List<Order> getOrdersForUser(String userId) {
-        return orderDao.getOrdersForUser(userId);
+    public List<Order> getOrdersForUser(String username) {
+        return orderDao.getOrdersForUser(username);
     }
 
 }

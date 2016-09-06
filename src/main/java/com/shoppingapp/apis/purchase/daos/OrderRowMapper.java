@@ -15,15 +15,8 @@ public class OrderRowMapper implements RowMapper {
         order.setShopId(rs.getString(3));
         order.setProductId(rs.getString(4));
         order.setPrice(Double.valueOf(rs.getString(5)));
-        order.setUserId(rs.getString(6));
+        order.setusername(rs.getString(6));
 
         return order;
     }
-/*    order_id text NOT NULL,
-    "orderDate" text,
-    shop_id text,
-    product_id text,
-    price text,
-    user_id text*/
-
 }
