@@ -1,14 +1,14 @@
 package com.shoppingapp.apis.account.controllers;
 
-import com.shoppingapp.apis.account.models.ListItem;
+import com.shoppingapp.apis.account.models.ShoppingItem;
 import com.shoppingapp.apis.account.services.AccountService;
-import com.shoppingapp.apis.review.model.Review;
-import com.shoppingapp.apis.review.services.StoreReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.xml.ws.RequestWrapper;
 import java.util.List;
 
 @RestController
@@ -26,10 +26,8 @@ public class AccountController {
     }
 
     @RequestMapping(value = "/account/list/item/delete")
-    public void deleteItem(@RequestParam(name = "username") String username,
-                           @RequestParam(name = "productId") String productId,
-                           @RequestParam(name = "storeId") String storeId) throws Exception {
-        accountService.deleteItem(username, productId, storeId);
+    public void deleteItem(@RequestParam(name = "username") String username, @RequestParam(name = "productId") String productId) throws Exception {
+        accountService.deleteItem(username, productId);
     }
 
     @RequestMapping(value = "/account/list/item/update")
@@ -41,7 +39,7 @@ public class AccountController {
     }
 
     @RequestMapping(value = "/account/list/get")
-    public List<ListItem> getList(@RequestParam(name = "username") String username) {
+    public List<ShoppingItem> getList(@RequestParam(name = "username") String username) {
         return accountService.getProductList(username);
     }
 }

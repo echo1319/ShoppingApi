@@ -1,6 +1,6 @@
 package com.shoppingapp.apis.account.services;
 
-import com.shoppingapp.apis.account.models.ListItem;
+import com.shoppingapp.apis.account.models.ShoppingItem;
 
 import java.util.List;
 
@@ -10,8 +10,8 @@ public interface AccountService {
 
     void updateItem(String username, String productId, String storeId, double price);
 
-    void deleteItem(String username, String productId, String storeId);
+    void deleteItem(String username, String productId);
 
-    List<ListItem> getProductList(String username);
+    List<ShoppingItem> getProductList(String username);
 
 }

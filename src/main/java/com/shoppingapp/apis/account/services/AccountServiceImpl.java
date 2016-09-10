@@ -1,7 +1,7 @@
 package com.shoppingapp.apis.account.services;
 
 import com.shoppingapp.apis.account.daos.AccountDao;
-import com.shoppingapp.apis.account.models.ListItem;
+import com.shoppingapp.apis.account.models.ShoppingItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,12 +23,12 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public void deleteItem(String username, String productId, String storeId) {
-        accountDao.deleteItem(username, productId, storeId);
+    public void deleteItem(String username, String productId) {
+        accountDao.deleteItem(username, productId);
     }
 
     @Override
-    public List<ListItem> getProductList(String username) {
+    public List<ShoppingItem> getProductList(String username) {
         return accountDao.getProductList(username);
     }
 }
